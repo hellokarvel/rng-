@@ -1,0 +1,48 @@
+html,body{
+
+     margin: 0;
+     padding: 0;
+     background: #eee;
+     height:100%;       
+}
+
+
+
+
+    @keyframes move{
+         0%{
+            top: 0;
+            left:0;
+            transform:rotateZ(0deg);}
+        
+          50%{
+            top:10px;
+             left:0;}
+          100%
+           {top:0;
+           left:0;
+           transform:rotateZ(-360deg);}
+ }
+
+@keyframes boxRotate{
+          0%{transform: rotateZ(0deg);}
+
+
+        100%{transform:rotateZ(360deg);}
+}
+
+    #box {
+        position: absolute;
+        left: 50%;
+        top:50%;
+        margin-left:-48px;
+        margin-top:48px;
+
+    
+        width: 96px;
+        height: 96px;
+        animation: boxRotate 5s linear infinite;}
+    #box img {
+        
+        position: relative;
+                animation:move 5s linear infinite;}
