@@ -1,0 +1,24 @@
+#include <stdio.h>
+
+
+ int  square(volatile  int  *ptr) 
+{  int  a,b;  a   =  *ptr;  b   =  *ptr;  return   a  *  b;  }  
+
+int foo(void)  
+{  unsigned   int  a   =  6;  
+int  b   =-20; 
+(a+b>  6)   ?  puts(">6")  :   puts("<=6"); //存在有符号 
+//类型和无符号类型时所有的操作数都自动转换为'无符号'类型
+}  
+
+
+int main()
+{
+unsigned int a;
+int b ;
+a=~0;
+
+printf("%d\n%d",a,b) ;
+puts("5");
+	
+}
