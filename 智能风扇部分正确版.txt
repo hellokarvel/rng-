@@ -1,0 +1,83 @@
+#include <reg52.h>
+#include <intrins.h>
+sbit w1=P2^4;
+sbit w2=P2^5;
+sbit w3=P2^6;															
+sbit w4=P2^7;
+sbit key2=P1^2;//时间加
+sbit key3=P1^3;//时间减
+sbit key4=P1^4;//时间开关
+sbit LED = P1^7;	
+char table[11]={0x3F,0x06,0x5B,0x4F,0x66,0x6D,0x7D,0x07,0x7F,0x6F};
+int d2,d3,d4,d5,time,wen_du;
+void Ti1();
+void delay(unsigned int ms)															
+{
+	unsigned int x;
+while(ms--)
+		for(x=10;x>0;x--);	}
+void delay_1ms(unsigned int ms)	
+{   unsigned int x;
+while(ms--)
+		for(x=600;x>0;x--);}
+void display()																
+{	  d2=wen_du/10;d3=wen_du%10;
+	  d4=time/10;d5=time%10;
+	w1=0;P0=table[d2];delay(10); //第1位
+	P0=0x00;w1=1;delay(1);		
+								  
+	w2=0;P0=table[d3];delay(10);//第2位
+	P0=0x00;w2=1;delay(1);
+
+	w3=0;P0=table[d4]; delay(10);//第3位
+	P0=0x00;w3=1;delay(1);
+
+	w4=0;P0=table[d5];delay(10);//第4位
+	P0=0x00;w4=1;delay(1);	}
+
+
+
+void zi_keyscan()	                   //定时器计数
+{ 	 	
+ display();
+
+		 
+	 if(key2==0){
+	 delay(20);
+	if(key2==0)time=time+1;}
+	while(!key2);		
+
+					  //再次判断按键，按下的话进入设置状态	
+      							  //设置键按下
+	if(key3==0){
+	 delay(20);
+	if(key3==0)time=time-1;}
+ 	while(!key3);
+
+
+	  if(key4==0)							  //设置键按下
+	if(key4==0){
+	 delay(20);
+	if(key4==0){ 
+	for(;time>0;time--) {display();delay(5800); }
+	      }
+		 }	while(!key4);
+	if(time==0)LED=1;
+	if(time==1)LED=0;	 }
+
+
+ 
+                               
+void main(){
+		   wen_du=28; time=10;	LED=0;
+		
+  
+  while(1)
+	{	
+zi_keyscan();	 }	 }
+
+
+
+
+
+
